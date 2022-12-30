@@ -16,6 +16,9 @@ struct Card {
 
 int main(void) {
 
+    int CARD_W = 200;
+    int CARD_H = 200;
+
     RenderWindow window(VideoMode(1200, 800), "Card_Game");// 화면 크기, 제목
     window.setFramerateLimit(60);// 60초마다 한 번씩 돌아간다
 
@@ -37,8 +40,8 @@ int main(void) {
     struct Card cards[S][S];
     for (int i = 0; i < S; i++) {
         for (int j = 0; j < S; j++) {
-            cards[i][j].sprite.setSize(Vector2f(100, 200));
-            cards[i][j].sprite.setPosition(j * 100, i * 200);
+            cards[i][j].sprite.setSize(Vector2f(CARD_W, CARD_H));
+            cards[i][j].sprite.setPosition(j * CARD_W, i * CARD_H);
             cards[i][j].sprite.setFillColor(Color(i * 64, j * 64, 0));
         }
     }
