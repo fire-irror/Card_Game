@@ -6,6 +6,14 @@
 
 using namespace sf;
 
+const int S = 4;    //카드 행 열
+
+struct Card {
+    RectangleShape sprite;
+    int id;    //카드 번호
+
+}; 
+
 int main(void) {
 
     RenderWindow window(VideoMode(1200, 800), "Card_Game");// 화면 크기, 제목
@@ -26,6 +34,14 @@ int main(void) {
     text.setPosition(0, 0);
     char info[40];
 
+    struct Card cards[S][S];
+    for (int i = 0; i < S; i++) {
+        for (int j = 0; j < S; j++) {
+            cards[i][j].sprite.setSize(Vector2f(100, 200));
+            cards[i][j].sprite.setPosition(j * 100, i * 200);
+            cards[i][j].sprite.setFillColor(Color(i * 64, j * 64, 0));
+        }
+    }
 
     while (window.isOpen())
     {
@@ -44,14 +60,17 @@ int main(void) {
                     click_cnt++;
                 }
             }
-            //한 번 누르면 한 번만 적용
-
         }
         sprintf(info, "(%d, %d) click %d\n"
             , mouse_pos.x, mouse_pos.y, click_cnt);// 마우스 x값 y값 출력
         text.setString(info);
 
         window.clear(Color::Black);
+        for (int i = 0; i < S; i++) {
+            for (int j = 0; j < S; j++) {
+                window.draw(cards[i][j].sprite);
+            }
+        }
         window.draw(text);
 
         window.display();
