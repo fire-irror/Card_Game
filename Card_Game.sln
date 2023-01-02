@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Card_Game", "Card_Game\Card_Game.vcxproj", "{C1B47058-D023-488B-8F44-A51BD7664287}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Grammer", "Grammer\Grammer.vcxproj", "{7FC42908-AB12-433A-90A7-707F6FA485EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{C1B47058-D023-488B-8F44-A51BD7664287}.Release|x64.Build.0 = Release|x64
 		{C1B47058-D023-488B-8F44-A51BD7664287}.Release|x86.ActiveCfg = Release|Win32
 		{C1B47058-D023-488B-8F44-A51BD7664287}.Release|x86.Build.0 = Release|Win32
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Debug|x64.ActiveCfg = Debug|x64
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Debug|x64.Build.0 = Debug|x64
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Debug|x86.ActiveCfg = Debug|Win32
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Debug|x86.Build.0 = Debug|Win32
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Release|x64.ActiveCfg = Release|x64
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Release|x64.Build.0 = Release|x64
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Release|x86.ActiveCfg = Release|Win32
+		{7FC42908-AB12-433A-90A7-707F6FA485EB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
