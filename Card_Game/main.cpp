@@ -27,7 +27,7 @@ int main()
 	int CARD_W = 150;
 	int CARD_H = 200;
 
-	RenderWindow window(VideoMode(1200, 800), "Card Game!");
+	RenderWindow window(VideoMode(600, 800), "Card Game!");
 	window.setFramerateLimit(60);
 
 	Vector2i mouse_pos;
@@ -188,7 +188,7 @@ int main()
 			}
 		}
 
-		sprintf(info, "(%d, %d) / CLICKS : %d\n", mouse_pos.x, mouse_pos.y, spent_time / 1000);
+		sprintf(info, "CLICKS : %d\n",spent_time / 1000);
 		text.setString(info);
 
 		window.clear(Color::Black);
