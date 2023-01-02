@@ -26,6 +26,10 @@ int main()
 	Vector2i mouse_pos;
 	int flipped_num = 0;     //현재 뒤집혀진 카드의 개수
 
+	long start_time;	//시작시각
+	long spent_time;	//현재시각
+	long delay_time;	//다시 ?로 뒤집혀지지 않도록 딜레이를 줌 딜레이가 시작되는 시각 
+
 	Texture t[8 + 1];
 	t[0].loadFromFile("./resource/images/0.png");	//카드 뒷면
 	t[1].loadFromFile("./resource/images/1.png");
@@ -65,9 +69,15 @@ int main()
 		}
 	}
 
+	start_time = clock();
+	delay_time = start_time;
+
+
+
 	while (window.isOpen())
 	{
 		mouse_pos = Mouse::getPosition(window);
+		spent_time = clock() - start_time;
 
 		Event event;
 		while (window.pollEvent(event))
@@ -85,14 +95,20 @@ int main()
 					{
 						for (int j = 0; j < arr_cnt; j++)
 						{
-							//마우스 위치가 cards[i][j]의 위치에 해당한다면?
-							if (cards[i][j].sprite.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y))
-							{
-								//뒤집혀지지 않은 카드만 뒤집겠다. 
-								if (cards[i][j].is_clicked == 0)
+							if (flipped_num < 2) {
+
+								//마우스 위치가 cards[i][j]의 위치에 해당한다면?
+								if (cards[i][j].sprite.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y))
 								{
-									cards[i][j].is_clicked = 1;
-									flipped_num++;
+									//뒤집혀지지 않은 카드만 뒤집겠다. 
+									if (cards[i][j].is_clicked == 0)
+									{
+										cards[i][j].is_clicked = 1;
+										flipped_num++;
+										if (flipped_num == 2) {
+											delay_time = spent_time;
+										}
+									}
 								}
 							}
 						}
@@ -117,25 +133,32 @@ int main()
 				}
 			}
 		}
-		//뒤집힌 카드가 2개라면
+		//뒤집힌 카드가 2개라면 
 		if (flipped_num == 2)
 		{
-			for (int i = 0; i < arr_cnt; i++)
-			{
-				for (int j = 0; j < arr_cnt; j++)
+			//두 카드가 뒤집힌지 1초 이내라면
+			if (spent_time - delay_time < 1000) {
+			}
+			else {
+				for (int i = 0; i < arr_cnt; i++)
 				{
-					cards[i][j].is_clicked = 0;
+					for (int j = 0; j < arr_cnt; j++)
+					{
+						cards[i][j].is_clicked = 0;
+						flipped_num = 0;
+					}
 				}
 			}
-			flipped_num = 0;
 		}
 
-		sprintf(info, "(%d, %d) / CLICKS : %d\n", mouse_pos.x, mouse_pos.y, flipped_num);
+		sprintf(info, "(%d, %d) / CLICKS : %d\n", mouse_pos.x, mouse_pos.y, spent_time / 1000);
 		text.setString(info);
 
 		window.clear(Color::Black);
-		for (int i = 0; i < arr_cnt; i++) {
-			for (int j = 0; j < arr_cnt; j++) {
+		for (int i = 0; i < arr_cnt; i++)
+		{
+			for (int j = 0; j < arr_cnt; j++)
+			{
 				window.draw(cards[i][j].sprite);
 			}
 		}
