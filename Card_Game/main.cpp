@@ -10,9 +10,11 @@ const int arr_cnt = 4;
 
 struct Card {
 	RectangleShape sprite;
-	int id;    //카드 번호
+	int id_i;    //카드 번호
+	int id_j;               
 	int type;
-	int is_clicked;
+	int is_clicked;		//현재 뒤집혀진 카드인지
+	int is_cleared;		//정답을 맞춘 카드인지
 };
 
 int main()
@@ -53,6 +55,7 @@ int main()
 	text.setPosition(0, 0);
 	char info[40];
 
+	struct Card compare_card;	//첫번째로 뒤집힌 카드
 	struct Card cards[arr_cnt][arr_cnt];
 	int n = 0;
 	for (int i = 0; i < arr_cnt; i++)
@@ -63,8 +66,10 @@ int main()
 			cards[i][j].sprite.setPosition(j * CARD_W, i * CARD_H);
 			cards[i][j].sprite.setTexture(&t[0]); // 뒤집기 전
 			cards[i][j].type = 1 + n / 2;
-			cards[i][j].id = n + 1;
+			cards[i][j].id_i = i;
+			cards[i][j].id_j = j;
 			cards[i][j].is_clicked = 0;
+			cards[i][j].is_cleared = 0;
 			n++;
 		}
 	}
@@ -105,8 +110,23 @@ int main()
 									{
 										cards[i][j].is_clicked = 1;
 										flipped_num++;
-										if (flipped_num == 2) {
+
+										//뒤집혀진 카드가 한 개라면?
+										if (flipped_num == 1) {
+											compare_card = cards[i][j];
+										}
+										//두 카드가 같은 종류면?
+										else if (flipped_num == 2) {
+											if (compare_card.type == cards[i][j].type)
+											{
+												cards[i][j].is_cleared = 1;
+												cards[compare_card.id_i][compare_card.id_j].is_cleared = 1;
+											}
 											delay_time = spent_time;
+										}
+										else
+										{
+											delay_time = spent_time;                                              
 										}
 									}
 								}
@@ -121,10 +141,10 @@ int main()
 		{
 			for (int j = 0; j < arr_cnt; j++)
 			{
-				//클릭이 된 상태면
-				if (cards[i][j].is_clicked)
+				//클릭이 된 상태거나 정답을 맞춘 카드라면 
+				if (cards[i][j].is_clicked==1 || cards[i][j].is_cleared==1)
 				{
-					// 그림이 있는 sprite로 변경
+					// 그림이 있는 sprite로 변경(카드를 뒤집겠다)
 					cards[i][j].sprite.setTexture(&t[cards[i][j].type]);
 				}
 				else {
